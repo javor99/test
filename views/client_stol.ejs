@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css"> 
+</head>
+<body>
+    <div class="roomNum"><%=id%></div>
+    <div class="stolovi_grid">
+        <%data.forEach(p=> { %>
+            
+            <div class ="stol_box" >
+                
+                <div class="stol_ime">
+                    <%=p.ime%> <br>
+                    <%=p.cijena%> kn
+                </div>
+                
+                    <img src="/slike/pice.jpeg" class="stol_slika">
+                    <input type = "checkbox" class="check <%=p.ime%>">
+                
+             </div>
+            
+            
+            <%})%>
+        </div>
+
+        <div><button onclick="kupi()">Naruci</button></div>
+    
+    
+  
+
+
+    
+</body>
+<script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+    <script>
+        function kupi() {
+            let poruke=[]
+            let classes=[]
+            var inputi = document.querySelectorAll(".check");
+            for(let i = 0;i<inputi.length;i++) {
+                if(inputi[i].checked) {
+                    poruke.push(inputi[i])
+                }
+            
+        }
+        for(let i = 0;i<poruke.length;i++) {
+            classes.push(poruke[i].className.split(" ")[1])
+        }
+        socket.emit("hello",{room:"stol "+roomNum , narudzba:classes ,roomNum})
+        
+    }
+
+         roomNum=document.querySelector(".roomNum").textContent
+        var socket = io.connect("http://localhost:3000")
+        
+        
+        socket.emit('join', "client "+roomNum);
+        
+
+    </script>
+</html>

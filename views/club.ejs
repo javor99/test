@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club</title>
+    <link rel="stylesheet" href="/style.css"> 
+</head>
+<body>
+    <div class="clubname">
+        <%=userdata.username%>
+        <div class="cjenik_txt" onclick="cjenik()">Cjenik</div> 
+        
+    </div>
+
+
+    <div class="stolovi_div<%=zadnjigumb%> stolovi_div">
+        <button class="novi_stol" onclick="otkrij()">Napravi novi stol</button>
+        <br><br>
+        <div class="Stolovi">Stolovi</div>
+        <div class="forma"> 
+            <form action="/club/<%=userdata.id%>" method="POST">
+                <div>
+                  <label for="say">Ime</label>
+                  <input name="ime" id="ime" value="">
+                </div>
+              
+                <div>
+                    <input type="submit" value="Novi stol">
+                </div>
+              </form>
+        </div>
+        <br>
+        <div class="stolovi_grid">
+        <%stolovidata.forEach(stol=> { %>
+            
+            <div class ="stol_box" >
+                <a href="/club/<%=userdata.id%>/<%=stol.ime%>" class="hrefs">
+                <div class="stol_ime">
+                    <%=stol.ime%>
+                </div>
+                
+                    <img src="/slike/stol.jpeg" class="stol_slika">
+                </a>
+                
+             </div>
+            
+            
+            <%})%>
+        </div>
+    </div>
+    <div class="cjenik<%=zadnjigumb%> cjenik" >
+        <form action="/club/<%=userdata.id%>/novi_proizvod" method="POST">
+            <div>
+              <label >Ime</label>
+              <input name="ime" id="ime" value="">
+
+            </div>
+            <div>
+                <label >Cijena</label>
+                <input name="cijena" id="cijena" value="">
+              </div>
+          
+            <div>
+                <input type="submit" value="Dodaj proizvod">
+            </div>
+          </form>
+        <div class="lista">
+            <div class="stolovi_grid">
+                <%pdata.forEach(p=> { %>
+                    
+                    <div class ="stol_box" >
+                        
+                        <div class="stol_ime">
+                            <%=p.ime%> <br>
+                            <%=p.cijena%> kn
+                        </div>
+                        
+                            <img src="/slike/pice.jpeg" class="stol_slika">
+                        
+                        
+                     </div>
+                    
+                    
+                    <%})%>
+                </div>
+          
+        </div>
+
+    </div>
+    <script> 
+     var o=true;
+    if(document.querySelector(".stolovi_divstol")) {
+        o=true
+    let stol=document.querySelector(".stolovi_divstol")
+    let cj=document.querySelector(".cjenikstol")
+    stol.style.display="block"
+    cj.style.display="none"
+
+    }
+    else {
+        o=false
+        let stol=document.querySelector(".stolovi_divproizvod")
+        let cj=document.querySelector(".cjenikproizvod")
+        stol.style.display="none"
+        cj.style.display="block"
+
+    }
+    var otkriveno=false; 
+    forma=document.querySelector(".forma")
+    function otkrij() {
+        if(otkriveno === false) {
+        forma.style.display="block"
+        otkriveno=true}
+        else {
+        forma.style.display="none"
+        otkriveno=false }
+
+
+    }
+    stolovi=document.querySelector(".stolovi_div")
+    proiz=document.querySelector(".cjenik")
+   
+    function cjenik() {
+        if(o === false) {
+        stolovi.style.display="block"
+        proiz.style.display="none"
+        
+
+        
+        o=true}
+        else {
+        stolovi.style.display="none"
+        proiz.style.display="block"
+        o=false }
+    }
+             
+    
+                
+    </script>
+</body>
+</html>
