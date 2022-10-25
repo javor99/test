@@ -57,7 +57,7 @@ router.get("/:userid/:stolname",async function (req,res) {
     const stoldata= await db.query("SELECT  * FROM STOLOVI  WHERE userid ="
     +req.params.userid +"AND ime='"+req.params.stolname+"'")
      
-    res.render("stol",{stoldata:stoldata.rows[0]})
+    res.render("stol",{stoldata:stoldata.rows[0],data})
      
        
    });
